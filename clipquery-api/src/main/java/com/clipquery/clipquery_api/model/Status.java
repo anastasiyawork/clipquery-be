@@ -13,7 +13,6 @@ import lombok.*;
 @ToString
 public class Status {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String code;
 

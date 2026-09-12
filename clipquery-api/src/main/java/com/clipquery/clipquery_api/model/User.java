@@ -23,18 +23,12 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "passwordHash", nullable = false)
+    @Column(name = "password_hash")
     private String passwordHash;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "user_role_code")
-    private Long userRoleCode;
-
-    @OneToMany
-    private List<Account> accounts;
-
-    @OneToMany
-    private List<ChatThread> chatThreads;
+    private String userRoleCode;
 }

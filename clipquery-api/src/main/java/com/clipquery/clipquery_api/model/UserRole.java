@@ -14,7 +14,6 @@ import lombok.*;
 public class UserRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "code")
     private String code;
 

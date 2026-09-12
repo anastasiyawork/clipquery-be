@@ -2,6 +2,11 @@ package com.clipquery.clipquery_api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Array;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.sql.SQLType;
 
 @Entity
 @Table(name = "clip_chunks")
@@ -22,12 +27,14 @@ public class ClipChunk {
     private Long clipId;
 
     @Column(name = "start_ms", nullable = false)
-    private double startMs;
+    private Long startMs;
 
     @Column(name = "end_ms", nullable = false)
-    private double endMs;
+    private Long endMs;
 
-    @Column(name = "vector(1536)")
+    @Column(name = "embedding")
+    @JdbcTypeCode(SqlTypes.VECTOR)
+    @Array(length = 1024)
     private float[] embedding;
 
     @Column(name = "content")

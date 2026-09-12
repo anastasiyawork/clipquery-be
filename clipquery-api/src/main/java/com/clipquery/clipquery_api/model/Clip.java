@@ -28,10 +28,10 @@ public class Clip {
     @Column(name = "size", nullable = false)
     private Double size;
 
-    @Column(name = "minIo_id", nullable = false)
-    private Integer minIoId;
+    @Column(name = "minio_id", nullable = false)
+    private String minIoId;
 
-    @Column(name = "owner_id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(name = "status_code", nullable = false)
