@@ -8,13 +8,14 @@ import lombok.*;
 @Getter
 @Setter
 public class ApiResponse<T> {
-    private String status;
+    private boolean success;
     private String message;
     private T data;
+    private String status;
 
-    public static <T> ApiResponse<T> error(String message, String status) {
+    public static <T> ApiResponse<T> error(String message) {
         return ApiResponse.<T>builder()
-                .status(status)
+                .success(false)
                 .message(message)
                 .build();
     }

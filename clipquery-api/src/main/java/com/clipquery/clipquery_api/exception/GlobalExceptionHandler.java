@@ -13,14 +13,26 @@ import org.springframework.web.context.request.WebRequest;
 @Slf4j
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(UserAlreadyExistsException.class)
-//    public ResponseEntity<ApiResponse<Void>> handleUserAlreadyExistsException(
-//            UserAlreadyExistsException ex, WebRequest request) {
-//        log.warn("User with such email already exists: {}", ex.getMessage());
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-//                ApiResponse.error(
-//                        ex.getMessage()
-//                )
-//        );
-//    }
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<ApiResponse<Void>> handleUserAlreadyExistsException(
+            UserAlreadyExistsException ex, WebRequest request) {
+        log.warn("User with such email already exists: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ApiResponse.error(
+                        ex.getMessage()
+
+                )
+        );
+    }
+
+    @ExceptionHandler(InvalidUserEmail.class)
+    public ResponseEntity<ApiResponse<Void>> handleInvalidUserData(
+            InvalidUserEmail ex, WebRequest request) {
+        log.warn("The provided email address is incorrect", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                ApiResponse.error(
+                        ex.getMessage()
+                )
+        );
+    }
 }

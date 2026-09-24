@@ -1,6 +1,7 @@
 package com.clipquery.clipquery_api.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "email", nullable = false)
+    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\\\.[a-z]{2,3}")
     private String email;
 
     @Column(name = "password_hash")
