@@ -1,11 +1,12 @@
 package com.clipquery.clipquery_api.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -13,6 +14,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegisterRequest {
 
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters")
     private String password;
 }

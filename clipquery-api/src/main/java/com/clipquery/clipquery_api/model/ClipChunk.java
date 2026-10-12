@@ -23,9 +23,6 @@ public class ClipChunk {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "clip_id", nullable = false)
-    private Long clipId;
-
     @Column(name = "start_ms", nullable = false)
     private Long startMs;
 
@@ -39,4 +36,8 @@ public class ClipChunk {
 
     @Column(name = "content")
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clip_id")
+    private Clip clip;
 }

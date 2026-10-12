@@ -7,7 +7,7 @@ create table if not exists user_roles (
 
 create table if not exists users (
     id BIGSERIAL NOT NULL PRIMARY KEY,
-    email VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(70),
     created_at TIMESTAMP NOT NULL,
     user_role_code VARCHAR(100),
@@ -26,7 +26,7 @@ create table if not exists accounts (
 );
 
 create table if not exists statuses (
-    code VARCHAR(10) NOT NULL PRIMARY KEY,
+    code VARCHAR(32) NOT NULL PRIMARY KEY,
     description TEXT
 );
 
@@ -34,16 +34,15 @@ create table if not exists clips (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     name VARCHAR(80) NOT NULL,
     type VARCHAR(5) NOT NULL,
-    size NUMERIC(12, 2) NOT NULL,
+    size BIGINT NOT NULL,
     minio_id TEXT NOT NULL,
     user_id BIGINT NOT NULL,
-    status_code VARCHAR(20) NOT NULL,
+    status_code VARCHAR(32) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
-    response TEXT,
-    UNIQUE(name, user_id),
+    error_message TEXT,
     FOREIGN KEY (status_code) REFERENCES statuses ON DELETE RESTRICT,
-    FOREIGN KEY (user_id) REFERENCES users
+    FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE
 );
 
 create table if not exists clip_chunks (
@@ -75,7 +74,16 @@ create table if not exists thread_clips (
 create table if not exists outbox (
     id BIGSERIAL NOT NULL PRIMARY KEY,
     event_type VARCHAR(30) NOT NULL,
+    sent_status VARCHAR(20) NOT NULL,
     payload JSONB NOT NULL,
+    attempt_count BIGINT,
+    next_attempt_sent_at TIMESTAMP NOT NULL DEFAULT now(),
     created_at TIMESTAMP NOT NULL,
     sent_at TIMESTAMP
 );
+
+insert into statuses (code, description) values
+('UPLOADED', 'Clip uploaded'),
+('PROCESSING', 'Processing the uploading'),
+('READY', 'Ready to use'),
+('FAILED', 'Failed to upload clip');

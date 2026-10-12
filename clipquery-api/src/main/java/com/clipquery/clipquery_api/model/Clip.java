@@ -26,7 +26,7 @@ public class Clip {
     private String type;
 
     @Column(name = "size", nullable = false)
-    private Double size;
+    private Long size;
 
     @Column(name = "minio_id", nullable = false)
     private String minIoId;
@@ -46,6 +46,6 @@ public class Clip {
     @Column(name = "response")
     private String response;
 
-    @OneToMany
+    @OneToMany(mappedBy = "clip")
     private List<ClipChunk> clipChunks;
 }

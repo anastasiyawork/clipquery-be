@@ -24,9 +24,18 @@ public class OutboxTable {
     @Column(name = "event_type")
     private String eventType;
 
+    @Column(name = "sent_status")
+    private String sent_status;
+
     @Column(name = "payload")
     @JdbcTypeCode(SqlTypes.JSON)
     private String payload;
+
+    @Column(name = "attempt_count")
+    private Long attemptCount;
+
+    @Column(name = "next_attempt_sent_at")
+    private LocalDateTime nextAttemptSentAt;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
