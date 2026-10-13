@@ -7,6 +7,7 @@ import com.clipquery.clipquery_api.dto.UserInfoDto;
 import com.clipquery.clipquery_api.model.User;
 import com.clipquery.clipquery_api.repository.UserRepository;
 import com.clipquery.clipquery_api.service.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +26,13 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request) {
+            @RequestBody @Valid RegisterRequest request) {
         return new ResponseEntity<>(authenticationService.register(request), HttpStatus.CREATED);
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request) {
+            @RequestBody @Valid AuthenticationRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

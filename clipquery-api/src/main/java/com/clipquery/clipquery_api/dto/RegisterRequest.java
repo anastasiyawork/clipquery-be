@@ -1,5 +1,6 @@
 package com.clipquery.clipquery_api.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegisterRequest {
 
+    @Email(message = "Invalid email format")
     @NotBlank
     private String email;
 

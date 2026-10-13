@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(name = "email", nullable = false)
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+    @Email(message = "Invalid email format")
     private String email;
 
     @Column(name = "password_hash")
