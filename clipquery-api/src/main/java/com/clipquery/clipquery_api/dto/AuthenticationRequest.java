@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationRequest {
 
-    @NotBlank
+    @NotBlank(message = "Email must not be blank")
     @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Email must not be blank")
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters")
     private String password;
 }

@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
 
     @Email(message = "Invalid email format")
-    @NotBlank
+    @NotBlank(message = "Email must not be blank")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password must not be blank")
     @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters")
     private String password;
 }

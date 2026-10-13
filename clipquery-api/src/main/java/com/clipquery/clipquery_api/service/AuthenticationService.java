@@ -32,6 +32,7 @@ public class AuthenticationService {
             throw new UserAlreadyExistsException("Email already in use: " + request.getEmail());
         }
 
+
         var user = User.builder()
                 .email(normalizedEmail)
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
