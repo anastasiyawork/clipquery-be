@@ -3,6 +3,7 @@ package com.clipquery.clipquery_api.exception;
 
 import com.clipquery.clipquery_api.dto.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,20 @@ public class GlobalExceptionHandler {
                         fields.stream()
                                 .map(f -> f.getField() + " : " + f.getDefaultMessage())
                                 .collect(Collectors.joining(", "))
+                )
+        );
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDataIntegrityViolationException(
+            DataIntegrityViolationException ex, WebRequest request) {
+
+        log.warn("Data integrity violation: {}", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ApiResponse.error(
+                        "User with such email already exists"
+
                 )
         );
     }

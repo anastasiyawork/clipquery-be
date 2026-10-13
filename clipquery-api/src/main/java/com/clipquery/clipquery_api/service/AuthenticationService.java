@@ -7,6 +7,7 @@ import com.clipquery.clipquery_api.exception.UserAlreadyExistsException;
 import com.clipquery.clipquery_api.model.User;
 import com.clipquery.clipquery_api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,6 @@ public class AuthenticationService {
         if (userRepository.existsByEmail(normalizedEmail)) {
             throw new UserAlreadyExistsException("Email already in use: " + request.getEmail());
         }
-
 
         var user = User.builder()
                 .email(normalizedEmail)
