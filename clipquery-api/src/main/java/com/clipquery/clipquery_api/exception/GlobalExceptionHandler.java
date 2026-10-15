@@ -26,7 +26,8 @@ public class GlobalExceptionHandler {
         log.warn("User with such email already exists: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 ApiResponse.error(
-                        ex.getMessage()
+                        ex.getMessage(),
+                        409
 
                 )
         );
@@ -42,7 +43,8 @@ public class GlobalExceptionHandler {
                 ApiResponse.error(
                         fields.stream()
                                 .map(f -> f.getField() + " : " + f.getDefaultMessage())
-                                .collect(Collectors.joining(", "))
+                                .collect(Collectors.joining(", ")),
+                        400
                 )
         );
     }
@@ -55,8 +57,20 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 ApiResponse.error(
-                        "User with such email already exists"
+                        "User with such email already exists",
+                        409
+                )
+        );
+    }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<Void>> handleException(
+            Exception ex, WebRequest request) {
+        log.error("Internal server error occurred: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                ApiResponse.error(
+                        ex.getMessage(),
+                        500
                 )
         );
     }
